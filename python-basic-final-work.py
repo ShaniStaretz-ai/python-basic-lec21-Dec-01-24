@@ -121,3 +121,30 @@ def add_animal_name(pets: list[dict[str, str | list[str]]], animal_name: str):
 add_animal_name(our_pets, "sikipy")
 add_animal_name(our_pets, "Frankie")
 print(our_pets)
+
+
+# challenge:
+def plusOne(digits: list[int]) -> list[int]:
+    remains = None
+    for i in range(len(digits) - 1, -1, -1):
+        if remains:
+            value = digits[i] + remains
+        else:
+            value = digits[i]
+            value += 1
+        if value < 10:
+            digits[i] = value
+            return digits
+        digits[i] = value % 10
+        remains = int(value / 10)
+        continue
+    if remains:
+        digits.insert(0, 1)
+    return digits
+
+
+print(plusOne([9]))
+print(plusOne([1, 2, 3]))
+print(plusOne([4, 3, 2, 1]))
+print(plusOne([1, 9, 9]))
+print(plusOne([9, 9, 9]))
