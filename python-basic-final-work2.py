@@ -1,4 +1,5 @@
 # 8
+
 student = {
     'name': 'John',
     'age': 20,
@@ -102,14 +103,12 @@ print(find_dup([4, 2, 34, 4, 1, 12, 1, 4]))
 
 # 12
 def reverse_list(l2: list[any]):
-    result = []
-    for i in range(len(l2) - 1, -1, -1):
-        result.append(l2[i])
-    return result
+    return [l2[i] for i in range(len(l2) - 1, -1, -1)]
 
 
 arr = [43, "what", 9, True, "cannot", False, "be", 3, True];
-print(reverse_list(arr))
+print("before reverse", arr)
+print("after reverse", reverse_list(arr))
 
 
 # 13
@@ -154,10 +153,9 @@ while counter > 50:
 print()
 
 
-# 17
-def duplicate_strings(l1: list[str]):
+def build_dict_for_string_list(l1: list[str]):
     dic1: dict[str, int] = {}
-    result = []
+
     i = 0
     while i < len(l1):
         x = l1[i]
@@ -166,6 +164,13 @@ def duplicate_strings(l1: list[str]):
         else:
             dic1[x] = 1
         i += 1
+    return dic1
+
+
+# 17
+def duplicate_strings(l1: list[str]):
+    dic1: dict[str, int] = build_dict_for_string_list(l1)
+    result = []
     i = 0
     keys = list(dic1.keys())
     while i < len(keys):
@@ -177,9 +182,103 @@ def duplicate_strings(l1: list[str]):
     return result
 
 
-print(duplicate_strings(["ssss", "2", "ssss", "Sss", "2", "aba", "a", "aa"]))
+print("before", (["ssss", "2", "ssss", "Sss", "2", "aba", "a", "aa"]))
+print("after", duplicate_strings(["ssss", "2", "ssss", "Sss", "2", "aba", "a", "aa"]))
 
 
 # 18
 def remove_string_duplicate(l1: list[str]):
-    pass
+    dict1 = build_dict_for_string_list(l1)
+    result = []
+    i = 0
+    keys = list(dict1.keys())
+    while i < len(keys):
+        k = keys[i]
+        value = dict1.get(k)
+        if value == 1:
+            result.append(k)
+        i += 1
+    return result
+
+
+print("before", (["ssss", "2", "ssss", "Sss", "2", "aba", "a", "aa"]))
+print("after", remove_string_duplicate(["ssss", "2", "ssss", "Sss", "2", "aba", "a", "aa"]))
+
+
+# 19
+def remove_string_duplicate_without_pete(l1: list[str]):
+    dict1 = build_dict_for_string_list(l1)
+    result = []
+    i = 0
+    keys = list(dict1.keys())
+    while i < len(keys):
+        k = keys[i]
+        if k == "pete":
+            i += 1
+            continue
+        value = dict1.get(k)
+        if value == 1:
+            result.append(k)
+        i += 1
+    return result
+
+
+print("before", (["ssss", "2", "ssss", "pete", "Sss", "2", "aba", "a", "aa"]))
+print("after", remove_string_duplicate_without_pete(["ssss", "2", "pete", "ssss", "Sss", "2", "aba", "a", "aa"]))
+
+
+# 20
+def dup_bool(l1: list[bool]) -> int:
+    index = 1
+    while index < len(l1):
+        if l1[index] == l1[index - 1]:
+            return index
+        index += 1
+    return -1
+
+
+bool1 = [True, False, False, True, True, False]
+print("before", bool1)
+print("after", dup_bool(bool1))
+
+bool2 = array = [True, False, True, False, True, True];
+print("before", bool2)
+print("after", dup_bool(bool2))
+
+bool3 = [True, False, True, False, True, False];
+print("before", bool3)
+print("after", dup_bool(bool3))
+
+
+# 21
+
+
+def validate_full_name(full_name_input) -> bool:
+    return type(full_name_input) == str and len(full_name_input.split()) == 2
+
+
+def validate_age(age_input) -> bool:
+    return type(int(age_input)) == int and 1 < int(age_input) < 130
+
+
+def validate_email(email_input):
+    return '@' in email_input
+
+
+dict1_functions = {
+    "full_name": validate_full_name,
+    "age": validate_age,
+    "email": validate_email
+
+}
+
+keys = ["full_name", "age", "email"]
+for key in keys:
+
+    while True:
+        value = input(f"enter your {' '.join(key.split("_"))}:")
+        func = dict1_functions.get(key)
+        if func(value):
+            print(f"{key} is valid")
+            break
+        print("try again")
