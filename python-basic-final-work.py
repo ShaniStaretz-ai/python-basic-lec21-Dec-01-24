@@ -17,14 +17,13 @@ for i in range(10, -20 - 2, -2):
 print()
 
 # 4
-print("4.numbers 1-45 Fizz/Bizz/FizzBizz:", end=" ")
-for i in range(1, 45):
-    if i % 3 == 0 and i % 5 == 0:
-        print(f"{i}:FizzBizz", end=" ")
-    elif i % 5 == 0:
-        print(f"{i}:Bizz", end=" ")
-    elif i % 3 == 0:
-        print(f"{i}:Fizz", end=" ")
+print("4.numbers 1-45 Fizz/Buzz/FizzBuzz:", end=" ")
+for i in range(1, 46):
+    if i % 3 == 0:
+        print("Fizz", end="")
+    if i % 5 == 0:
+        print("Buzz", end=" ")
+
 print()
 
 
@@ -57,7 +56,7 @@ students_example = [
 ]
 
 
-def delete_student_property(students: list[any], student_property: str) -> None:
+def delete_student_property(students: list[dict], student_property: str) -> None:
     for student in students:
         if student_property in list(student.keys()):
             del student[student_property]
@@ -107,14 +106,13 @@ our_pets = [
 ]
 
 
-def cats_animal_type(pets: list[dict[str, str | list[str]]]):
+def get_animal_type(pets: list[dict[str, str | list[str]]]):
     for pet in pets:
-        if pet["animal_type"].lower() == "cat":
-            print(f"{pet}")
+        print(f"animal type:{pet["animal_type"]}")
 
 
-print("7.1 print the pet properties only if the type is 'cat': ")
-cats_animal_type(our_pets)
+print("7.1 print the pet's animal_type only': ")
+get_animal_type(our_pets)
 
 
 def animal_names_by_type(pets: list[dict[str, str | list[str]]], animal_type: str):
@@ -160,7 +158,7 @@ print("8.1.start student details:")
 student_print(student_example)
 
 
-# 2
+# 8.2
 def add_hobby(student_1: dict[str, str | list[str] | int], hobby: str) -> None:
     if not hobby in student_1['hobbies']:
         student_1['hobbies'].append(hobby)
@@ -168,12 +166,12 @@ def add_hobby(student_1: dict[str, str | list[str] | int], hobby: str) -> None:
 
 add_hobby(student_example, "paint")
 
-# 3
+# 8.3
 print("8.2-3.after added 'paint' to hobbies")
 student_print(student_example)
 
 
-# 4
+# 8.4
 def delete_hobby(student_1: dict[str, str | list[str] | int], hobby: str) -> dict[str, str | list[str] | int]:
     student_1_copy = student_1.copy()
     if hobby in student_1['hobbies']:
@@ -181,20 +179,20 @@ def delete_hobby(student_1: dict[str, str | list[str] | int], hobby: str) -> dic
     return student_1_copy
 
 
-student = delete_hobby(student_example, 'games')
-# 5
+student_example = delete_hobby(student_example, 'games')
+# 8.5
 print("8.4-5.after deleted 'games' from hobbies:")
-student_print(student)
+student_print(student_example)
 
 
-# 6
+# 8.6
 def add_student_family_name(student_1: dict[str, str | list[str] | int], property_value: str) -> None:
     student_1['family_name'] = property_value.capitalize()
 
 
-add_student_family_name(student, 'staretz')
+add_student_family_name(student_example, 'staretz')
 print("8.6.after adding 'family_name' property:")
-student_print(student)
+student_print(student_example)
 
 # 9
 
@@ -415,10 +413,6 @@ print(f"the first pair is in index {result_bool3}" if result_bool3 != -1 else "n
 
 # 21
 
-def validate_full_name(full_name_input: str) -> bool:
-    return type(full_name_input) == str and len(full_name_input.split()) == 2
-
-
 def validate_age(age_input: str) -> bool:
     try:
         return type(int(age_input)) == int and 1 < int(age_input) < 130
@@ -426,14 +420,10 @@ def validate_age(age_input: str) -> bool:
         return False
 
 
-def validate_email(email_input: str) -> bool:
-    return type(email_input) == str and '@' in email_input
-
-
 dict1_functions = {
-    "full_name": validate_full_name,
+    "full_name": lambda full_name_input: len(full_name_input.split()) == 2,
     "age": validate_age,
-    "email": validate_email
+    "email": lambda email_input: type(email_input) == str and '@' in email_input
 
 }
 
